@@ -3,7 +3,6 @@ resource "google_project" "host_project" {
   project_id      = "afrl-shared-services-01"
   folder_id = var.folder_id
   billing_account = var.billing_account_id
-  auto_create_network = false
 }
 
 # One project which will use the VPC.
@@ -12,7 +11,6 @@ resource "google_project" "service_project_1" {
   project_id      = "afrl-big-data-sp-01"
   folder_id = var.folder_id
   billing_account = var.billing_account_id
-  auto_create_network = false
 }
 
 # The other project which will use the VPC.
@@ -21,7 +19,6 @@ resource "google_project" "service_project_2" {
   project_id      = "afrl-gae-01"
   folder_id = var.folder_id
   billing_account = var.billing_account_id
-  auto_create_network = false
 }
 
 # Compute service needs to be enabled for all four new projects.
