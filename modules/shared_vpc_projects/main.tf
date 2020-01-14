@@ -1,22 +1,22 @@
 resource "google_project" "host_project" {
-  name            = "afrl-shared-services-01"
-  project_id      = "afrl-shared-services-01"
+  name            = "afrl-shared-vpc-host-01"
+  project_id      = "afrl-shared-vpc-host-01"
   folder_id = var.folder_id
   billing_account = var.billing_account_id
 }
 
 # One project which will use the VPC.
 resource "google_project" "service_project_1" {
-  name            = "afrl-big-data-sp-01"
-  project_id      = "afrl-big-data-sp-01"
+  name            = "afrl-bd-sp-01"
+  project_id      = "afrl-bd-sp-01"
   folder_id = var.folder_id
   billing_account = var.billing_account_id
 }
 
 # The other project which will use the VPC.
 resource "google_project" "service_project_2" {
-  name            = "afrl-gae-01"
-  project_id      = "afrl-gae-01"
+  name            = "afrl-gae-sp-01"
+  project_id      = "afrl-gae-sp-01"
   folder_id = var.folder_id
   billing_account = var.billing_account_id
 }
