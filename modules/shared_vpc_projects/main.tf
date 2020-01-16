@@ -44,7 +44,7 @@ resource "google_compute_shared_vpc_host_project" "host_project" {
 }
 
 # Big Query service needs to be enabled for BD project.
-resource "google_project_service" "enable_big_query api" {
+resource "google_project_service" "enable_big_query_api" {
   project = google_project.service_project_2.project_id
   service = "bigquery.googleapis.com"
 }
