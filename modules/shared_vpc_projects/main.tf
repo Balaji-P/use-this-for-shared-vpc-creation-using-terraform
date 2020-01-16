@@ -43,6 +43,12 @@ resource "google_compute_shared_vpc_host_project" "host_project" {
   depends_on = [google_project_service.host_project]
 }
 
+# Big Query service needs to be enabled for BD project.
+resource "google_project_service" "enable_big_query api" {
+  project = google_project.service_project_2.project_id
+  service = "bigquery.googleapis.com"
+}
+
 # Enable shared VPC in the two service projects - explicitly depend on the host
 # project enabling it, because enabling shared VPC will fail if the host project
 # is not yet hosting.
