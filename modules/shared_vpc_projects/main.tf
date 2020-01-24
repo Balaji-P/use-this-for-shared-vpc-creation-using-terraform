@@ -116,5 +116,12 @@ resource "google_compute_subnetwork" "afrl-subnet-01" {
   description = "Shared network for big data project"
   ip_cidr_range = "10.1.0.0/27"
   private_ip_google_access = true
+  secondary_ip_range {
+    ip_cidr_range = "10.20.0.0/22"
+    range_name = "afrl-composer-pods-subnet"
+  }secondary_ip_range {
+    ip_cidr_range = "10.20.4.0/27"
+    range_name = "afrl-composer-services-subnet"
+  }
 
 }
