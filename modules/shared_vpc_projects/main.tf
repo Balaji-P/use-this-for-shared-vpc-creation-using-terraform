@@ -5,7 +5,7 @@ resource "google_project" "host_project" {
   billing_account = var.billing_account_id
 }
 
-# One project which will use the VPC.
+# A service project which will use the VPC.
 resource "google_project" "service_project_1" {
   name            = "afrl-bd-sp-01"
   project_id      = "afrl-bd-sp-01"
@@ -13,7 +13,7 @@ resource "google_project" "service_project_1" {
   billing_account = var.billing_account_id
 }
 
-# The other project which will use the VPC.
+# The other service project which will use the VPC.
 resource "google_project" "service_project_2" {
   name            = "afrl-gae-sp-01"
   project_id      = "afrl-gae-sp-01"
