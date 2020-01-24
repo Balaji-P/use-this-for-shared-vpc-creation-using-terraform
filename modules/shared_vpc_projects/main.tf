@@ -21,6 +21,15 @@ resource "google_project" "service_project_2" {
   billing_account = var.billing_account_id
 }
 
+# Service project for cloud composer
+resource "google_project" "service_project_3" {
+  name            = "afrl-cloud-composer-01"
+  project_id      = "afrl-cloud-composer-01"
+  folder_id = var.folder_id
+  billing_account = var.billing_account_id
+}
+
+
 # Compute service needs to be enabled for all four new projects.
 resource "google_project_service" "host_project" {
   project = google_project.host_project.project_id
@@ -34,6 +43,11 @@ resource "google_project_service" "service_project_1" {
 
 resource "google_project_service" "service_project_2" {
   project = google_project.service_project_2.project_id
+  service = "compute.googleapis.com"
+}
+
+resource "google_project_service" "service_project_3" {
+  project = google_project.service_project_3.project_id
   service = "compute.googleapis.com"
 }
 
@@ -69,6 +83,16 @@ resource "google_compute_shared_vpc_service_project" "service_project_2" {
   depends_on = [
     google_compute_shared_vpc_host_project.host_project,
     google_project_service.service_project_2,
+  ]
+}
+
+resource "google_compute_shared_vpc_service_project" "service_project_3" {
+  host_project    = google_project.host_project.project_id
+  service_project = google_project.service_project_3.project_id
+
+  depends_on = [
+    google_compute_shared_vpc_host_project.host_project,
+    google_project_service.service_project_3,
   ]
 }
 
