@@ -11,7 +11,7 @@ data "terraform_remote_state" "afrl-bd-folder-id" {
 resource "google_project" "host_project" {
   name            = "afrl-shared-vpc-host-01"
   project_id      = "afrl-shared-vpc-host-01"
-  folder_id = data.terraform_remote_state.afrl-bd-folder-id.output.afrl-bd-folder
+  folder_id = data.terraform_remote_state.afrl-bd-folder-id.outputs.afrl-bd-folder
   billing_account = var.billing_account_id
 }
 
@@ -19,7 +19,7 @@ resource "google_project" "host_project" {
 resource "google_project" "service_project_1" {
   name            = "afrl-bd-sp-01"
   project_id      = "afrl-bd-sp-01"
-  folder_id = var.folder_id
+  folder_id = data.terraform_remote_state.afrl-bd-folder-id.outputs.afrl-bd-folder
   billing_account = var.billing_account_id
 }
 
@@ -27,7 +27,7 @@ resource "google_project" "service_project_1" {
 resource "google_project" "service_project_2" {
   name            = "afrl-gae-sp-01"
   project_id      = "afrl-gae-sp-01"
-  folder_id = var.folder_id
+  folder_id = data.terraform_remote_state.afrl-bd-folder-id.outputs.afrl-bd-folder
   billing_account = var.billing_account_id
 }
 
@@ -35,7 +35,7 @@ resource "google_project" "service_project_2" {
 resource "google_project" "service_project_3" {
   name            = "afrl-cloud-composer-01"
   project_id      = "afrl-cloud-composer-01"
-  folder_id = var.folder_id
+  folder_id = data.terraform_remote_state.afrl-bd-folder-id.outputs.afrl-bd-folder
   billing_account = var.billing_account_id
 }
 
