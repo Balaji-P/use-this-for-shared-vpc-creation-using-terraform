@@ -41,8 +41,8 @@ resource "google_project" "service_project_3" {
 
 # Service project for sandbox testing
 resource "google_project" "service_project_4" {
-  name            = "afrl-sandbox-service-project-01"
-  project_id      = "afrl-sandbox-service-project-01"
+  name            = "afrl-sandbox-sp-01"
+  project_id      = "afrl-sandbox-sp-01"
   folder_id = data.terraform_remote_state.afrl-bd-folder-id.outputs.afrl-bd-folder
   billing_account = var.billing_account_id
 }
