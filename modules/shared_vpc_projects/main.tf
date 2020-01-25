@@ -115,6 +115,7 @@ resource "google_compute_network" "shared_network" {
   depends_on = [
     google_compute_shared_vpc_service_project.service_project_1,
     google_compute_shared_vpc_service_project.service_project_2,
+    google_compute_shared_vpc_service_project.service_project_3
   ]
 }
 
