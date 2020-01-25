@@ -1,7 +1,17 @@
+data "terraform_remote_state" "afrl-bd-folder-id" {
+  backend = "remote"
+  config = {
+    organization = "AFRLDigitalMFG"
+    workspaces = {
+      name = "folders"
+    }
+  }
+}
+
 resource "google_project" "host_project" {
   name            = "afrl-shared-vpc-host-01"
   project_id      = "afrl-shared-vpc-host-01"
-  folder_id = var.folder_id
+  folder_id = data.terraform_remote_state.afrl-bd-folder-id.output.afrl-bd-folder
   billing_account = var.billing_account_id
 }
 
