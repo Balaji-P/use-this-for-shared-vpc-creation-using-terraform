@@ -118,6 +118,13 @@ resource "google_compute_network" "shared_network" {
   ]
 }
 
+resource "google_compute_network" "testing" {
+  name        =       "testing"
+  auto_create_subnetworks = "false"
+  project                 = google_compute_shared_vpc_host_project.host_project.project
+
+}
+
 resource "google_compute_subnetwork" "afrl-subnet-01" {
   project = google_project.host_project.name
   name = "afrl-bd-subnet-01"
