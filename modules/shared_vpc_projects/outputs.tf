@@ -21,3 +21,7 @@ output "shared_vpc_network_name" {
 output "shared_vpc_subnetwork_1" {
   value = google_compute_subnetwork.afrl-subnet-01.name
 }
+
+output "shared_vpc_subnetwork_cidr_block" {
+  value = google_compute_subnetwork.afrl-subnet-01.ip_cidr_range
+}

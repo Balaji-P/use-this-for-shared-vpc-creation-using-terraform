@@ -21,3 +21,7 @@ output "afrl-shared-vpc-network-name" {
 output "afrl-shared-vpc-subnet-1" {
   value = module.project.shared_vpc_subnetwork_1
 }
+
+output "afrl-shared-vpc-subnet-cidr_block" {
+  value = module.project.shared_vpc_subnetwork_cidr_block
+}
