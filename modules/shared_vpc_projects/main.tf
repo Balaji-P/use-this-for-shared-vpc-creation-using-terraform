@@ -164,6 +164,7 @@ resource "google_compute_subnetwork" "afrl-subnet-01" {
     ip_cidr_range = "10.20.4.0/27"
     range_name = "afrl-composer-services-subnet"
   }
+}
 
   resource "google_compute_subnetwork" "afrl-subnet-02" {
   project = google_project.host_project.name
