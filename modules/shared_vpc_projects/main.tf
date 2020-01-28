@@ -39,6 +39,14 @@ resource "google_project" "service_project_3" {
   billing_account = var.billing_account_id
 }
 
+# Service project for cloud composer
+resource "google_project" "service_project_4" {
+  name            = "afrl-janus-sp-01"
+  project_id      = "afrl-janus-sp-01"
+  folder_id = data.terraform_remote_state.afrl-bd-folder-id.outputs.afrl-bd-folder
+  billing_account = var.billing_account_id
+}
+
 # Compute service needs to be enabled for all four new projects.
 resource "google_project_service" "host_project" {
   project = google_project.host_project.project_id
@@ -57,6 +65,11 @@ resource "google_project_service" "service_project_2" {
 
 resource "google_project_service" "service_project_3" {
   project = google_project.service_project_3.project_id
+  service = "compute.googleapis.com"
+}
+
+resource "google_project_service" "service_project_4" {
+  project = google_project.service_project_4.project_id
   service = "compute.googleapis.com"
 }
 
@@ -105,6 +118,16 @@ resource "google_compute_shared_vpc_service_project" "service_project_3" {
   ]
 }
 
+resource "google_compute_shared_vpc_service_project" "service_project_4" {
+  host_project    = google_project.host_project.project_id
+  service_project = google_project.service_project_4.project_id
+
+  depends_on = [
+    google_compute_shared_vpc_host_project.host_project,
+    google_project_service.service_project_4,
+  ]
+}
+
 # Create the hosted network.
 resource "google_compute_network" "shared_network" {
   name                    = "afrl-shared-network"
@@ -142,4 +165,20 @@ resource "google_compute_subnetwork" "afrl-subnet-01" {
     range_name = "afrl-composer-services-subnet"
   }
 
+  resource "google_compute_subnetwork" "afrl-subnet-02" {
+  project = google_project.host_project.name
+  name = "afrl-janus-subnet-01"
+  network = google_compute_network.shared_network.name
+  region = "us-central1"
+  description = "Shared network for janus project"
+  ip_cidr_range = "10.2.0.0/27"
+  private_ip_google_access = true
+  secondary_ip_range {
+    ip_cidr_range = "10.30.0.0/22"
+    range_name = "afrl-janus-pods-subnet"
+  }
+  secondary_ip_range {
+    ip_cidr_range = "10.30.4.0/27"
+    range_name = "afrl-janus-services-subnet"
+  }
 }
