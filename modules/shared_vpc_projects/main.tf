@@ -148,6 +148,16 @@ resource "google_compute_network" "testing" {
 
 }
 
+# Place a lien on important project to prevent accidental deletion
+
+resource "google_resource_manager_lien" "shared_vpc_lien" {
+  parent       = "projects/${google_project.host_project.project_id}"
+  restrictions = ["resourcemanager.projects.delete"]
+  origin       = "lien-applied-via-terraform"
+  reason       = "Prevent Accidental deletion of shared vpc project and resources"
+}
+
+
 resource "google_compute_subnetwork" "afrl-subnet-01" {
   project = google_project.host_project.name
   name = "afrl-bd-subnet-01"
